@@ -1,0 +1,16 @@
+@echo off
+setlocal
+set "MOD_NAME=%~1"
+if "%MOD_NAME%"=="" (
+    echo Uso: a2enmod nombre_modulo.conf
+    exit /b 1
+)
+set "SOURCE=%~dp0\..\conf\mods-available\%MOD_NAME%"
+set "TARGET=%~dp0\..\conf\mods-enabled\%MOD_NAME%"
+
+if exist "%SOURCE%" (
+    mklink "%TARGET%" "%SOURCE%"
+    echo Modulo habilitado: %MOD_NAME%
+) else (
+    echo El modulo %MOD_NAME% no existe en mods-available
+)
